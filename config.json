@@ -1,0 +1,44 @@
+{
+	"Disabled": [
+		false,
+		"bool"
+	],
+	"Disabled_Description": [
+		"Setting to true disables the module",
+		"string"
+	],	
+	"SupportedServers": [
+		[
+			"*"
+		],
+		"array"
+	],
+	"SupportedServers_Description": [
+		"If IMAP Server value of the mailserver is in this list, password change is enabled for it. * enables it for all the servers.",
+		"string"
+	],
+	"FastpanelURL": [
+		"http://localhost:8888",
+		"string"
+	],
+	"FastpanelURL_Description": [
+		"Defines main URL of Fastpanel installation",
+		"string"
+	],
+	"FastpanelAdminUser": [
+		"fastuser",
+		"string"
+	],
+	"FastpanelAdminUser_Description": [
+		"Admin username of Fastpanel installation",
+		"string"
+	],
+	"FastpanelAdminPass": [
+		"",
+		"string"
+	],
+	"FastpanelAdminPass_Description": [
+		"Admin password of Fastpanel installation",
+		"string"
+	]		
+}
