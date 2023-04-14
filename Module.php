@@ -19,9 +19,6 @@ namespace Aurora\Modules\MailChangePasswordFastpanelPlugin;
  */
 class Module extends \Aurora\System\Module\AbstractModule
 {
-    /**
-     * @var
-     */
     public function init()
     {
         $this->subscribeEvent('Mail::Account::ToResponseArray', array($this, 'onMailAccountToResponseArray'));
@@ -31,8 +28,8 @@ class Module extends \Aurora\System\Module\AbstractModule
     /**
      * Send GET request via cURL
      * @param string $sUrl
-	 * @param string $sToken
-	 * @return object|bool
+     * @param string $sToken
+     * @return object|bool
      */
     private function getdata($sUrl, $sToken="")
     {
@@ -58,9 +55,9 @@ class Module extends \Aurora\System\Module\AbstractModule
     /**
      * Send POST request via cURL
      * @param string $sUrl
-	 * @param string $aPost
-	 * @param string $sToken
-	 * @return object|bool
+     * @param string $aPost
+     * @param string $sToken
+     * @return object|bool
      */
     private function postdata($sUrl, $aPost, $sToken="")
     {
@@ -88,9 +85,9 @@ class Module extends \Aurora\System\Module\AbstractModule
     /**
      * Send PUT request via cURL
      * @param string $sUrl
-	 * @param string $aPut
-	 * @param string $sToken
-	 * @return object|bool
+     * @param string $aPut
+     * @param string $sToken
+     * @return object|bool
      */
     private function putdata($sUrl, $aPut, $sToken="")
     {
@@ -156,7 +153,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 
     /**
      * Checks if allowed to change password for account.
-     * @param \Aurora\Modules\Mail\Classes\Account $oAccount
+     * @param \Aurora\Modules\Mail\Models\MailAccount $oAccount
      * @return bool
      */
     protected function checkCanChangePassword($oAccount)
@@ -176,7 +173,7 @@ class Module extends \Aurora\System\Module\AbstractModule
 
     /**
      * Tries to change password for account.
-     * @param \Aurora\Modules\Mail\Classes\Account $oAccount
+     * @param \Aurora\Modules\Mail\Models\MailAccount $oAccount
      * @param string $sPassword
      * @return boolean
      * @throws \Aurora\System\Exceptions\ApiException
@@ -228,7 +225,9 @@ class Module extends \Aurora\System\Module\AbstractModule
             }
 
             $oRes3 = $this->getdata($sFastpanelURL."/api/email/domains/".$iDomainId."/boxs", $sToken);
-
+            if (!is_object($oRes3)) {
+                throw new \Aurora\System\Exceptions\ApiException(0, null, "Fastpanel API error: could not retrieve list of email users in domain ".$sDomain);
+            }
             $aUserList = $oRes3->data;
             $iUserId = null;
             $oUser = null;
