@@ -1,4 +1,4 @@
-# aurora-module-mail-change-password-directadmin-plugin
+# aurora-module-mail-change-password-fastpanel-plugin
 
 Allows users to change passwords on their email accounts hosted by [Fastpanel](https://fastpanel.direct/).
 
