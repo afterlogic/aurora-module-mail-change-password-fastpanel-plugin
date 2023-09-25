@@ -57,7 +57,7 @@ class Module extends \Aurora\System\Module\AbstractModule
      * @param string $sToken
      * @return object|bool
      */
-    private function getdata($sUrl, $sToken="")
+    private function getdata($sUrl, $sToken = "")
     {
         $rCurl = curl_init();
         $acurlOpt = array(
@@ -68,8 +68,8 @@ class Module extends \Aurora\System\Module\AbstractModule
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => ['Content-Type: application/json']
         );
-        if ($sToken!="") {
-            array_push($acurlOpt[CURLOPT_HTTPHEADER], "Authorization: Bearer ".$sToken);
+        if ($sToken != "") {
+            array_push($acurlOpt[CURLOPT_HTTPHEADER], "Authorization: Bearer " . $sToken);
         }
         curl_setopt_array($rCurl, $acurlOpt);
         $mResult = curl_exec($rCurl);
@@ -85,7 +85,7 @@ class Module extends \Aurora\System\Module\AbstractModule
      * @param string $sToken
      * @return object|bool
      */
-    private function postdata($sUrl, $aPost, $sToken="")
+    private function postdata($sUrl, $aPost, $sToken = "")
     {
         $rCurl = curl_init();
         $acurlOpt = array(
@@ -98,8 +98,8 @@ class Module extends \Aurora\System\Module\AbstractModule
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => ['Content-Type: application/json']
         );
-        if ($sToken!="") {
-            array_push($acurlOpt[CURLOPT_HTTPHEADER], "Authorization: Bearer ".$sToken);
+        if ($sToken != "") {
+            array_push($acurlOpt[CURLOPT_HTTPHEADER], "Authorization: Bearer " . $sToken);
         }
         curl_setopt_array($rCurl, $acurlOpt);
         $mResult = curl_exec($rCurl);
@@ -115,7 +115,7 @@ class Module extends \Aurora\System\Module\AbstractModule
      * @param string $sToken
      * @return object|bool
      */
-    private function putdata($sUrl, $aPut, $sToken="")
+    private function putdata($sUrl, $aPut, $sToken = "")
     {
         $rCurl = curl_init();
         $acurlOpt = array(
@@ -127,8 +127,8 @@ class Module extends \Aurora\System\Module\AbstractModule
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER => ['Content-Type: application/json']
         );
-        if ($sToken!="") {
-            array_push($acurlOpt[CURLOPT_HTTPHEADER], "Authorization: Bearer ".$sToken);
+        if ($sToken != "") {
+            array_push($acurlOpt[CURLOPT_HTTPHEADER], "Authorization: Bearer " . $sToken);
         }
         curl_setopt_array($rCurl, $acurlOpt);
         $mResult = curl_exec($rCurl);
@@ -223,15 +223,15 @@ class Module extends \Aurora\System\Module\AbstractModule
         }
 
         if (0 < strlen($sPassCurr) && $sPassCurr !== $sPassword) {
-            $aPost = array("password"=>$sFastpanelAdminPass, "username"=>$sFastpanelAdminUser);
-            $oRes1 = $this->postdata($sFastpanelURL."/login", json_encode($aPost));
+            $aPost = array("password" => $sFastpanelAdminPass, "username" => $sFastpanelAdminUser);
+            $oRes1 = $this->postdata($sFastpanelURL . "/login", json_encode($aPost));
 
-            if ($oRes1===false) {
+            if ($oRes1 === false) {
                 throw new \Aurora\System\Exceptions\ApiException(0, null, "Fastpanel admin auth general error");
             }
 
             if (isset($oRes1->code) && isset($oRes1->message)) {
-                throw new \Aurora\System\Exceptions\ApiException(0, null, "Fastpanel admin auth error ".$oRes1->code.": ".$oRes1->message);
+                throw new \Aurora\System\Exceptions\ApiException(0, null, "Fastpanel admin auth error " . $oRes1->code . ": " . $oRes1->message);
             }
 
             if (!isset($oRes1->data->token)) {
@@ -239,8 +239,8 @@ class Module extends \Aurora\System\Module\AbstractModule
             }
 
             $sToken = $oRes1->data->token;
-            $oRes2 = $this->getdata($sFastpanelURL."/api/email/domains", $sToken);
-            if (($oRes2===false)||(!isset($oRes2->data))) {
+            $oRes2 = $this->getdata($sFastpanelURL . "/api/email/domains", $sToken);
+            if (($oRes2 === false) || (!isset($oRes2->data))) {
                 throw new \Aurora\System\Exceptions\ApiException(0, null, "Fastpanel API error: could not get list of domains");
             }
 
@@ -253,12 +253,12 @@ class Module extends \Aurora\System\Module\AbstractModule
             }
 
             if ($iDomainId == null) {
-                throw new \Aurora\System\Exceptions\ApiException(0, null, "Fastpanel API error: could not locate email domain ".$sDomain);
+                throw new \Aurora\System\Exceptions\ApiException(0, null, "Fastpanel API error: could not locate email domain " . $sDomain);
             }
 
-            $oRes3 = $this->getdata($sFastpanelURL."/api/email/domains/".$iDomainId."/boxs", $sToken);
+            $oRes3 = $this->getdata($sFastpanelURL . "/api/email/domains/" . $iDomainId . "/boxs", $sToken);
             if (!is_object($oRes3)) {
-                throw new \Aurora\System\Exceptions\ApiException(0, null, "Fastpanel API error: could not retrieve list of email users in domain ".$sDomain);
+                throw new \Aurora\System\Exceptions\ApiException(0, null, "Fastpanel API error: could not retrieve list of email users in domain " . $sDomain);
             }
             $aUserList = $oRes3->data;
             $iUserId = null;
@@ -271,14 +271,14 @@ class Module extends \Aurora\System\Module\AbstractModule
             }
 
             if ($iUserId == null) {
-                throw new \Aurora\System\Exceptions\ApiException(0, null, "Fastpanel API error: could not locate email user ".$sUsername." in domain");
+                throw new \Aurora\System\Exceptions\ApiException(0, null, "Fastpanel API error: could not locate email user " . $sUsername . " in domain");
             }
 
             $aPut = array("password" => $sPassword, "quota" => $oUser->quota, "redirects" => $oUser->redirects, "aliases" => $oUser->aliases, "spam_to_junk" => $oUser->spam_to_junk);
-            $oRes4 = $this->putdata($sFastpanelURL."/api/mail/box/".$iUserId, json_encode($aPut), $sToken);
+            $oRes4 = $this->putdata($sFastpanelURL . "/api/mail/box/" . $iUserId, json_encode($aPut), $sToken);
 
             if (isset($oRes4->errors->password)) {
-                throw new \Aurora\System\Exceptions\ApiException(0, null, "Fastpanel API error: ".$oRes4->errors->password);
+                throw new \Aurora\System\Exceptions\ApiException(0, null, "Fastpanel API error: " . $oRes4->errors->password);
             }
 
             if (!isset($oRes4->data->id)) {
