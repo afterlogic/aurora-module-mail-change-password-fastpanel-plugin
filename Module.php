@@ -9,6 +9,7 @@
 namespace Aurora\Modules\MailChangePasswordFastpanelPlugin;
 
 use Aurora\Modules\Mail\Models\MailAccount;
+use Aurora\System\Notifications;
 
 /**
  * Allows users to change passwords on their email accounts in Fastpanel.
@@ -284,7 +285,7 @@ class Module extends \Aurora\System\Module\AbstractModule
             }
 
             if (!isset($oRes4->data->id)) {
-                throw new \Aurora\System\Exceptions\ApiException(\Aurora\System\Exceptions\Errs::UserManager_AccountNewPasswordUpdateError);
+                throw new \Aurora\System\Exceptions\ApiException(Notifications::CanNotChangePassword);
             }
         }
         return true;
