@@ -58,6 +58,7 @@ class Module extends \Aurora\System\Module\AbstractModule
         $acurlOpt = array(
             CURLOPT_URL => $sUrl,
             CURLOPT_CUSTOMREQUEST => "GET",
+            // Intentionally disabled: Fastpanel control panels commonly run with self-signed certificates.
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_RETURNTRANSFER => true,
@@ -88,6 +89,7 @@ class Module extends \Aurora\System\Module\AbstractModule
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => $aPost,
+            // Intentionally disabled: Fastpanel control panels commonly run with self-signed certificates.
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_RETURNTRANSFER => true,
@@ -117,6 +119,7 @@ class Module extends \Aurora\System\Module\AbstractModule
             CURLOPT_URL => $sUrl,
             CURLOPT_CUSTOMREQUEST => "PUT",
             CURLOPT_POSTFIELDS => $aPut,
+            // Intentionally disabled: Fastpanel control panels commonly run with self-signed certificates.
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_SSL_VERIFYHOST => false,
             CURLOPT_RETURNTRANSFER => true,
